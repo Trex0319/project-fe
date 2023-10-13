@@ -7,7 +7,7 @@ import {
 import Header from "../Header";
 import { useState, useMemo } from "react";
 import { notifications } from "@mantine/notifications";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Table,
   Space,
@@ -23,6 +23,8 @@ import { useCookies } from "react-cookie";
 export default function Cart() {
   const [cookies] = useCookies(["currentUser"]);
   const { currentUser } = cookies;
+  const navigate = useNavigate();
+  const { id } = useParams;
   const [checkedList, setCheckedList] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
   const queryClient = useQueryClient();
@@ -99,10 +101,10 @@ export default function Cart() {
   return (
     <>
       <Container>
-        <Header title="Cart" page="cart" />
+        <Header title="Favorite" page="cart" />
         <Space h="20px" />
-        <Group position="center">
-          {isAdmin && (
+        {cookies && cookies.currentUser ? (
+          <Group position="center">
             <Table highlightOnHover>
               <thead>
                 <tr>
@@ -160,7 +162,19 @@ export default function Cart() {
                         </td>
                         <td> {c.name}</td>
                         <td>
+                          {/* {isAdmin && ( */}
                           <Group position="right">
+                            <Button
+                              color="blue"
+                              size="xs"
+                              radius="md"
+                              onClick={() => {
+                                navigate("/detail/" + c._id);
+                              }}
+                            >
+                              {" "}
+                              Show details
+                            </Button>
                             <Button
                               color="red"
                               size="xs"
@@ -172,6 +186,7 @@ export default function Cart() {
                               Remove
                             </Button>
                           </Group>
+                          {/* )} */}
                         </td>
                       </tr>
                     );
@@ -185,8 +200,10 @@ export default function Cart() {
                 <tr></tr>
               </tbody>
             </Table>
-          )}
-        </Group>
+          </Group>
+        ) : (
+          <></>
+        )}
         <Space h="50px" />
         <Group position="center">
           <Button

@@ -19,8 +19,13 @@ import { useState, useMemo } from "react";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getCar, deleteCar } from "../api/cars";
 import { useCookies } from "react-cookie";
-import { addComment, addVideoComment, fetchComments } from "../api/comment";
-// import { addToCart } from "../api/cart";
+import { BsFillTrashFill } from "react-icons/bs";
+import {
+  addComment,
+  addVideoComment,
+  fetchComments,
+  deleteComment,
+} from "../api/comment";
 
 function CarDetails() {
   const [cookies] = useCookies(["currentUser"]);
@@ -78,7 +83,7 @@ function CarDetails() {
         queryKey: ["comments"],
       });
       notifications.show({
-        title: "Unliked",
+        title: "Comment Add",
         color: "green",
       });
     },
@@ -102,6 +107,19 @@ function CarDetails() {
     setComment("");
   };
 
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["comments"],
+      });
+      notifications.show({
+        title: "Deleted Successfully",
+        color: "grenn",
+      });
+    },
+  });
+
   return (
     <>
       <Container>
@@ -123,57 +141,57 @@ function CarDetails() {
             mx={"auto"}
           />
           <br />
-          {isAdmin && (
-            <>
-              <Space h="20px" />
-              <Group>
-                {cookies && cookies.currentUser ? (
-                  <>
-                    <Group style={{ paddingLeft: "12px" }}>
-                      <div>
-                        <TextInput
-                          placeholder="Add a comment..."
-                          variant="unstyled"
-                          w={680}
-                          radius="md"
-                          value={comment}
-                          onChange={(event) => setComment(event.target.value)}
-                        />
-                      </div>
-                      {comment.length > 0 && (
-                        <div>
-                          <Group position="right">
-                            <Button
-                              style={{ margin: "0px" }}
-                              onClick={handleAddNewComment}
-                            >
-                              Comment
-                            </Button>
-                          </Group>
-                        </div>
-                      )}
-                    </Group>
-                  </>
-                ) : (
-                  <>
-                    <Group>
+          <>
+            <Space h="20px" />
+            <Group>
+              {cookies && cookies.currentUser ? (
+                <>
+                  <Group style={{ paddingLeft: "12px" }}>
+                    <div>
                       <TextInput
-                        value=""
-                        placeholder="Enter the description here"
-                        style={{ border: "0px 0px 1px 0 px " }}
+                        placeholder="Add a comment..."
+                        variant="unstyled"
+                        w={680}
+                        radius="md"
+                        value={comment}
+                        onChange={(event) => setComment(event.target.value)}
                       />
-                    </Group>
-                  </>
-                )}
-              </Group>
+                    </div>
+                    {comment.length > 0 && (
+                      <div>
+                        <Group position="right">
+                          <Button
+                            style={{ margin: "0px" }}
+                            onClick={handleAddNewComment}
+                          >
+                            Comment
+                          </Button>
+                        </Group>
+                      </div>
+                    )}
+                  </Group>
+                </>
+              ) : (
+                <>
+                  <Group>
+                    <TextInput
+                      value=""
+                      placeholder="Enter the description here"
+                      style={{ border: "0px 0px 1px 0 px " }}
+                    />
+                  </Group>
+                </>
+              )}
+            </Group>
 
-              <ScrollArea.Autosize h={100}>
-                {comments && comments.length > 0 ? (
-                  comments.map((c) => (
-                    <Grid.Col span={12}>
-                      <Space h={15} />
-                      <Divider w="100%" />
-                      <Space h={15} />
+            <Grid>
+              {comments && comments.length > 0 ? (
+                comments.map((c) => (
+                  <Grid.Col span={12}>
+                    <Space h={15} />
+                    <Divider w="100%" />
+                    <Space h={15} />
+                    <Group position="apart">
                       <Group>
                         <div style={{ paddingTop: "8px", paddingLeft: "0px" }}>
                           <Text size={14}>
@@ -185,22 +203,40 @@ function CarDetails() {
                           <Text size={18}>{c.comments}</Text>
                         </div>
                       </Group>
-                    </Grid.Col>
-                  ))
-                ) : (
-                  <>
-                    <Space h={15} />
-                    <Divider w="100%" />
-                    <Space h={100} />
-                    <Group position="center">
-                      <Text size={16}>No comments yet</Text>
+                      <Group>
+                        <Link
+                          style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                          }}
+                          onClick={() => {
+                            deleteCommentMutation.mutate({
+                              id: c._id,
+                              token: currentUser ? currentUser.token : "",
+                            });
+                          }}
+                        >
+                          <BsFillTrashFill />
+                        </Link>
+                      </Group>
                     </Group>
-                  </>
-                )}
-              </ScrollArea.Autosize>
+                  </Grid.Col>
+                ))
+              ) : (
+                <>
+                  <Space h={15} />
+                  <Divider w="100%" />
+                  <Space h={100} />
+                  <Group position="center">
+                    <Text size={16}>No comments yet</Text>
+                  </Group>
+                </>
+              )}
+            </Grid>
 
-              <Space h="30px" />
+            <Space h="30px" />
 
+            {isAdmin && (
               <Group position="apart">
                 <Button
                   component={Link}
@@ -226,21 +262,22 @@ function CarDetails() {
                   Delete
                 </Button>
               </Group>
-              <Space h="30px" />
+            )}
 
-              <Group position="center">
-                <Button
-                  component={Link}
-                  to="/"
-                  variant="gradient"
-                  size="xs"
-                  gradient={{ from: "blue", to: "purple", deg: 105 }}
-                >
-                  Go back to Home
-                </Button>
-              </Group>
-            </>
-          )}
+            <Space h="30px" />
+
+            <Group position="center">
+              <Button
+                component={Link}
+                to="/"
+                variant="gradient"
+                size="xs"
+                gradient={{ from: "blue", to: "purple", deg: 105 }}
+              >
+                Go back to Home
+              </Button>
+            </Group>
+          </>
         </Card>
       </Container>
     </>

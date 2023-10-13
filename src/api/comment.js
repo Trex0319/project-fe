@@ -1,9 +1,10 @@
 import axios from "axios";
 import { API_URL } from "./data";
+
 export const addComment = async ({ data, token = "" }) => {
   const response = await axios({
     method: "POST",
-    url: API_URL + "/comments/add",
+    url: API_URL + "/comments",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,

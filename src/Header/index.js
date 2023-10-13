@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import "../App.css";
+// import "../App.css";
 
 export default function Headers({ title, page = "" }) {
   const [cookies, setCookies, removeCookies] = useCookies(["currentUser"]);
