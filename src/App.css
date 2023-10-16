@@ -1,6 +1,7 @@
 .background {
   background-image: url("image/Simple-Background-Design-Graphics-19387159-1.jpg");
   background-size: cover;
+  height: 300vh;
 }
 
 .background1 {
