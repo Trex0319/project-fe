@@ -49,7 +49,7 @@ export default function Headers({ title, page = "" }) {
             <>
               <Group>
                 <Avatar
-                  src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+                  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficon-library.com%2Ficon%2Fno-user-image-icon-23.html&psig=AOvVaw13s6c3zuvGmu-k3Wzwo2bX&ust=1697525735165000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJiM2KX--YEDFQAAAAAdAAAAABAE"
                   radius="xl"
                 />
                 <div style={{ flex: 1 }}>
