@@ -101,7 +101,7 @@ export default function Cart() {
   });
   return (
     <>
-      <div className="background1">
+      <div className="nobackground">
         <Container>
           <Header title="Favorite" page="cart" />
           <Space h="20px" />
