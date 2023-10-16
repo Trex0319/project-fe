@@ -59,7 +59,7 @@ export default function Login() {
   return (
     <div className="background3">
       <Container>
-        <Header title="Login" page="login" color="black" />
+        <Header title="Login" page="login" />
         <Space h="60px" />
         <Card
           withBorder
