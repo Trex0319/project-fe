@@ -137,7 +137,7 @@ function CarDetails() {
             </div>
             <Space h="50px" />
             <Image
-              src={"http://localhost:8000/" + image}
+              src={"http://10.1.104.4:8000/" + image}
               width="500px"
               mx={"auto"}
             />

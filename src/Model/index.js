@@ -68,7 +68,7 @@ export default function Model() {
                         {m.image && m.image !== "" ? (
                           <>
                             <Image
-                              src={"http://localhost:8000/" + m.image}
+                              src={"http://10.1.104.4:8000/" + m.image}
                               width="100px"
                             />
                           </>

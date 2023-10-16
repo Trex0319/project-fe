@@ -186,7 +186,7 @@ function Products() {
                   <Card shadow="sm" padding="lg" radius="md" withBorder>
                     <Card.Section>
                       <Image
-                        src={"http://localhost:8000/" + car.image}
+                        src={"http://10.1.104.4:8000/" + car.image}
                         alt={car.title}
                         className="card-img-top"
                       />
