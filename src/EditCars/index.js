@@ -116,15 +116,15 @@ function CarsEdit() {
     <Container>
       <Space h="50px" />
       <Title order={2} align="center">
-        Edit Product
+        Edit Car
       </Title>
       <Space h="50px" />
       <Card withBorder shadow="md" p="20px">
         <TextInput
           value={name}
-          placeholder="Enter the product title here"
+          placeholder="Enter the car title here"
           label="Name"
-          description="The title of the product"
+          description="The title of the car"
           withAsterisk
           onChange={(event) => setName(event.target.value)}
         />
@@ -157,9 +157,9 @@ function CarsEdit() {
         <Space h="20px" />
         <Textarea
           value={detail}
-          placeholder="Enter the product detail here"
+          placeholder="Enter the car detail here"
           label="detail"
-          description="The detail of the product"
+          description="The detail of the car"
           withAsterisk
           minRows={5}
           onChange={(event) => setDetail(event.target.value)}
@@ -172,7 +172,7 @@ function CarsEdit() {
           placeholder="Enter the price here"
           label="Price"
           precision={2}
-          description="The price of the product"
+          description="The price of the car"
           withAsterisk
           onChange={setPrice}
         />
@@ -196,7 +196,7 @@ function CarsEdit() {
         </select>
         <Space h="20px" />
         <Button fullWidth onClick={handleUpdateCars}>
-          Edit Product
+          Edit Car
         </Button>
       </Card>
       <Space h="20px" />
