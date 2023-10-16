@@ -1,17 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.269e3623.css",
-    "main.js": "/static/js/main.de0aabb5.js",
+    "main.css": "/static/css/main.7a1b9e42.css",
+    "main.js": "/static/js/main.90f98870.js",
     "static/media/Simple-Background-Design-Graphics-19387159-1.jpg": "/static/media/Simple-Background-Design-Graphics-19387159-1.a6c71451abbadbca2c1e.jpg",
-    "static/media/memphis-blue-background-with-halftone-and-line-elements-for-wallpaper-web-banner-or-landing-page-vector.jpg": "/static/media/memphis-blue-background-with-halftone-and-line-elements-for-wallpaper-web-banner-or-landing-page-vector.fead91f6683b21110223.jpg",
     "static/media/simple-background-5xlztplnpbyqvxmz.jpg": "/static/media/simple-background-5xlztplnpbyqvxmz.51b760382370d226e77d.jpg",
     "static/media/360_F_537919759_hSQgQ1J9OqynS9h5b1xufu781cUWF6qC.jpg": "/static/media/360_F_537919759_hSQgQ1J9OqynS9h5b1xufu781cUWF6qC.c4056908f0d69dec5058.jpg",
     "index.html": "/index.html",
-    "main.269e3623.css.map": "/static/css/main.269e3623.css.map",
-    "main.de0aabb5.js.map": "/static/js/main.de0aabb5.js.map"
+    "main.7a1b9e42.css.map": "/static/css/main.7a1b9e42.css.map",
+    "main.90f98870.js.map": "/static/js/main.90f98870.js.map"
   },
   "entrypoints": [
-    "static/css/main.269e3623.css",
-    "static/js/main.de0aabb5.js"
+    "static/css/main.7a1b9e42.css",
+    "static/js/main.90f98870.js"
   ]
 }
