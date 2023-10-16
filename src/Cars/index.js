@@ -19,10 +19,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchCars, deleteCar } from "../api/cars";
 import { useCookies } from "react-cookie";
 import { addToCart } from "../api/cart";
-import { IconHeart } from "@tabler/icons-react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdSaveAlt } from "react-icons/md";
+import { TfiTag } from "react-icons/tfi";
 import { fetchModels } from "../api/model";
+import "../App.css";
 
 function Products() {
   const [cookies] = useCookies(["currentUser"]);
@@ -84,7 +84,7 @@ function Products() {
     if (models && models.length > 0) {
       models.forEach((model) => {
         if (!options.includes(model)) {
-          options.push(model);
+          options.push({ value: model._id, label: model.name });
         }
       });
     }
@@ -120,8 +120,9 @@ function Products() {
   return (
     <>
       <Group position="apart">
-        <Title order={3} align="center">
-          Cars
+        <Title order={3} color="white">
+          <div className="text">Cars Catalogue</div>
+          <div className="text">Explore out cars you might like</div>
         </Title>
         {isAdmin && (
           <Button component={Link} to="/cars_add" color="green">
@@ -131,31 +132,23 @@ function Products() {
       </Group>
       <Space h="20px" />
       <Group>
-        <select
+        <Select
+          placeholder="Pick value"
+          data={modelOptions}
           value={model}
-          onChange={(event) => {
-            setModel(event.target.value);
-          }}
-        >
-          <option value="">All Models</option>
-          {modelOptions.map((model) => {
-            return (
-              <option key={model._id} value={model._id}>
-                {model.name}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          value={sort}
-          onChange={(event) => {
-            setSort(event.target.value);
-          }}
-        >
-          <option value="">No Sorting</option>
-          <option value="name">Sort by Name</option>
-          <option value="price">Sort by Price</option>
-        </select>
+          onChange={setModel}
+        />
+
+        <Select
+          placeholder="Pick value"
+          data={[
+            { value: "No Sorting", label: "No Sorting" },
+            { value: "name", label: "name" },
+            { value: "price", label: "price" },
+          ]}
+          onChange={setSort}
+        />
+
         <div
           style={{ width: "30%" }}
           sx={{
@@ -275,7 +268,7 @@ function Products() {
                           radius="md"
                           gradient={{ from: "red", to: "pink", deg: 90 }}
                         >
-                          <MdSaveAlt />
+                          <TfiTag />
                         </ActionIcon>{" "}
                       </ActionIcon>
                     </Group>
@@ -315,7 +308,6 @@ function Products() {
             })
           : null}
       </Grid>
-      <Space h="40px" />
     </>
   );
 }

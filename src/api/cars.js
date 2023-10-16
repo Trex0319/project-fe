@@ -2,8 +2,10 @@ import axios from "axios";
 
 import { API_URL } from "./data";
 
-export const fetchCars = async () => {
-  const response = await axios.get(API_URL + "/cars");
+export const fetchCars = async (model) => {
+  const response = await axios.get(
+    API_URL + "/cars?" + (model !== "" ? "model=" + model : "")
+  );
   return response.data;
 };
 

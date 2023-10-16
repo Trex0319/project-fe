@@ -1,5 +1,42 @@
 .background {
-  background-color: lightblue;
-  background-image: url("image/360_F_285273061_oQPBtWDMeljw4o5fKIduvW48S5qoGedv.jpg");
+  background-image: url("image/Simple-Background-Design-Graphics-19387159-1.jpg");
   background-size: cover;
+}
+
+.background1 {
+  background-image: url("image/memphis-blue-background-with-halftone-and-line-elements-for-wallpaper-web-banner-or-landing-page-vector.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.background2 {
+  background-image: url("image/simple-background-5xlztplnpbyqvxmz.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.background3 {
+  background-image: url("image/360_F_537919759_hSQgQ1J9OqynS9h5b1xufu781cUWF6qC.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.nobackground {
+  background-color: lightblue;
+  background-size: cover;
+  height: 100vh;
+}
+
+.text {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 40px;
+}
+
+.text1 {
+  font-family: "Lucida Handwriting", cursive;
+  font-size: 50px;
+}
+
+.text2 {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }

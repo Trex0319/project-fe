@@ -19,6 +19,7 @@ import {
   Container,
 } from "@mantine/core";
 import { useCookies } from "react-cookie";
+import "../App.css";
 
 export default function Cart() {
   const [cookies] = useCookies(["currentUser"]);
@@ -100,125 +101,124 @@ export default function Cart() {
   });
   return (
     <>
-      <Container>
-        <Header title="Favorite" page="cart" />
-        <Space h="20px" />
-        {cookies && cookies.currentUser ? (
-          <Group position="center">
-            <Table highlightOnHover>
-              <thead>
-                <tr>
-                  <th>
-                    <Checkbox
-                      type="checkbox"
-                      checked={checkAll}
-                      disabled={cart && cart.length > 0 ? false : true}
-                      onChange={(event) => {
-                        checkBoxAll(event);
-                      }}
-                    />
-                  </th>
-                  <th>Image</th>
-                  <th>Car</th>
-                  <th>
-                    <Group position="right">Actions</Group>
-                  </th>
-                </tr>
-              </thead>{" "}
-              <tbody>
-                {cart ? (
-                  cart.map((c) => {
-                    return (
-                      <tr key={c._id}>
-                        <td>
-                          <Checkbox
-                            checked={
-                              checkedList && checkedList.includes(c._id)
-                                ? true
-                                : false
-                            }
-                            type="checkbox"
-                            onChange={(event) => {
-                              checkboxOne(event, c._id);
-                            }}
-                          />
-                        </td>
-                        <td>
-                          {c.image && c.image !== "" ? (
-                            <>
+      <div className="background1">
+        <Container>
+          <Header title="Favorite" page="cart" />
+          <Space h="20px" />
+          {cookies && cookies.currentUser ? (
+            <Group position="center">
+              <Table highlightOnHover>
+                <thead>
+                  <tr>
+                    <th>
+                      <Checkbox
+                        type="checkbox"
+                        checked={checkAll}
+                        disabled={cart && cart.length > 0 ? false : true}
+                        onChange={(event) => {
+                          checkBoxAll(event);
+                        }}
+                      />
+                    </th>
+                    <th>Image</th>
+                    <th>Car</th>
+                    <th>
+                      <Group position="right">Actions</Group>
+                    </th>
+                  </tr>
+                </thead>{" "}
+                <tbody>
+                  {cart ? (
+                    cart.map((c) => {
+                      return (
+                        <tr key={c._id}>
+                          <td>
+                            <Checkbox
+                              checked={
+                                checkedList && checkedList.includes(c._id)
+                                  ? true
+                                  : false
+                              }
+                              type="checkbox"
+                              onChange={(event) => {
+                                checkboxOne(event, c._id);
+                              }}
+                            />
+                          </td>
+                          <td>
+                            {c.image && c.image !== "" ? (
+                              <>
+                                <Image
+                                  src={"http://localhost:8000/" + c.image}
+                                  width="100px"
+                                />
+                              </>
+                            ) : (
                               <Image
-                                src={"http://localhost:8000/" + c.image}
+                                src={
+                                  "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
+                                }
                                 width="100px"
                               />
-                            </>
-                          ) : (
-                            <Image
-                              src={
-                                "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
-                              }
-                              width="100px"
-                            />
-                          )}
-                        </td>
-                        <td> {c.name}</td>
-                        <td>
-                          {/* {isAdmin && ( */}
-                          <Group position="right">
-                            <Button
-                              color="blue"
-                              size="xs"
-                              radius="md"
-                              onClick={() => {
-                                navigate("/detail/" + c._id);
-                              }}
-                            >
-                              {" "}
-                              Show details
-                            </Button>
-                            <Button
-                              color="red"
-                              size="xs"
-                              radius="50px"
-                              onClick={() => {
-                                deleteMutation.mutate(c._id);
-                              }}
-                            >
-                              Remove
-                            </Button>
-                          </Group>
-                          {/* )} */}
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <Grid.Col className="mt-5">
-                    <Space h="120px" />
-                    <h1 className="text-center text-muted">Empty Cart .</h1>
-                  </Grid.Col>
-                )}
-                <tr></tr>
-              </tbody>
-            </Table>
+                            )}
+                          </td>
+                          <td> {c.name}</td>
+                          <td>
+                            <Group position="right">
+                              <Button
+                                color="blue"
+                                size="xs"
+                                radius="md"
+                                onClick={() => {
+                                  navigate("/detail/" + c._id);
+                                }}
+                              >
+                                {" "}
+                                Show details
+                              </Button>
+                              <Button
+                                color="red"
+                                size="xs"
+                                radius="50px"
+                                onClick={() => {
+                                  deleteMutation.mutate(c._id);
+                                }}
+                              >
+                                Remove
+                              </Button>
+                            </Group>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <Grid.Col className="mt-5">
+                      <Space h="120px" />
+                      <h1 className="text-center text-muted">Empty Cart .</h1>
+                    </Grid.Col>
+                  )}
+                  <tr></tr>
+                </tbody>
+              </Table>
+            </Group>
+          ) : (
+            <></>
+          )}
+          <Space h="50px" />
+          <Group position="center">
+            <Button
+              color="red"
+              disabled={checkedList && checkedList.length > 0 ? false : true}
+              onClick={(event) => {
+                event.preventDefault();
+                deleteCheckedItems();
+              }}
+            >
+              Delete Selected
+            </Button>
           </Group>
-        ) : (
-          <></>
-        )}
-        <Space h="50px" />
-        <Group position="center">
-          <Button
-            color="red"
-            disabled={checkedList && checkedList.length > 0 ? false : true}
-            onClick={(event) => {
-              event.preventDefault();
-              deleteCheckedItems();
-            }}
-          >
-            Delete Selected
-          </Button>
-        </Group>
-      </Container>
-      <Space h="50px" />
+        </Container>
+      </div>
     </>
   );
 }

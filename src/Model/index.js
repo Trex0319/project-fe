@@ -6,6 +6,7 @@ import { fetchModels, deleteModel } from "../api/model";
 import { notifications } from "@mantine/notifications";
 import { useCookies } from "react-cookie";
 import Header from "../Header";
+import "../App.css";
 
 export default function Model() {
   const [cookies] = useCookies(["currentUser"]);
@@ -37,7 +38,7 @@ export default function Model() {
     },
   });
   return (
-    <>
+    <div className="background2">
       <Container>
         <Header title="Models" page="models" />
         <Space h="20px" />{" "}
@@ -105,6 +106,6 @@ export default function Model() {
           </tbody>
         </Table>
       </Container>
-    </>
+    </div>
   );
 }

@@ -36,7 +36,6 @@ function CarAdd() {
     queryFn: () => fetchModels(),
   });
 
-  // create mutation
   const createMutation = useMutation({
     mutationFn: addCar,
     onSuccess: () => {
@@ -47,7 +46,6 @@ function CarAdd() {
       navigate("/");
     },
     onError: (error) => {
-      // when this is an error in API call
       notifications.show({
         title: error.response.data.message,
         color: "red",

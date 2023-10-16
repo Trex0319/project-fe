@@ -9,9 +9,8 @@ import {
   Group,
   Image,
   Grid,
-  Textarea,
-  ScrollArea,
   Text,
+  BackgroundImage,
 } from "@mantine/core";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
@@ -20,12 +19,8 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getCar, deleteCar } from "../api/cars";
 import { useCookies } from "react-cookie";
 import { BsFillTrashFill } from "react-icons/bs";
-import {
-  addComment,
-  addVideoComment,
-  fetchComments,
-  deleteComment,
-} from "../api/comment";
+import { addComment, fetchComments, deleteComment } from "../api/comment";
+import "../App.css";
 
 function CarDetails() {
   const [cookies] = useCookies(["currentUser"]);
@@ -122,164 +117,174 @@ function CarDetails() {
 
   return (
     <>
-      <Container>
-        <Space h="50px" />
-        <Title order={2} align="center">
-          Detail
-        </Title>
-        <Space h="50px" />
-
-        <Card withBorder shadow="lg">
-          <br />
-          Name: {name}
-          <br />
-          Detail: {detail}
+      <BackgroundImage src="/image/360_F_285273061_oQPBtWDMeljw4o5fKIduvW48S5qoGedv.jpg">
+        <Container>
           <Space h="50px" />
-          <Image
-            src={"http://localhost:8000/" + image}
-            width="500px"
-            mx={"auto"}
-          />
-          <br />
-          <>
-            <Space h="20px" />
-            <Group>
-              {cookies && cookies.currentUser ? (
-                <>
-                  <Group style={{ paddingLeft: "12px" }}>
-                    <div>
-                      <TextInput
-                        placeholder="Add a comment..."
-                        variant="unstyled"
-                        w={680}
-                        radius="md"
-                        value={comment}
-                        onChange={(event) => setComment(event.target.value)}
-                      />
-                    </div>
-                    {comment.length > 0 && (
-                      <div>
-                        <Group position="right">
-                          <Button
-                            style={{ margin: "0px" }}
-                            onClick={handleAddNewComment}
-                          >
-                            Comment
-                          </Button>
-                        </Group>
-                      </div>
-                    )}
-                  </Group>
-                </>
-              ) : (
-                <>
-                  <Group>
-                    <TextInput
-                      value=""
-                      placeholder="Enter the description here"
-                      style={{ border: "0px 0px 1px 0 px " }}
-                    />
-                  </Group>
-                </>
-              )}
-            </Group>
+          <Title order={2} align="center">
+            Detail
+          </Title>
+          <Space h="50px" />
 
-            <Grid>
-              {comments && comments.length > 0 ? (
-                comments.map((c) => (
-                  <Grid.Col span={12}>
+          <Card withBorder shadow="lg">
+            <br />
+            <div className="text1" align="center">
+              {name}
+            </div>
+            <br />
+            <Space h="10px" />
+            <div className="text2" align="center">
+              {detail}
+            </div>
+            <Space h="50px" />
+            <Image
+              src={"http://localhost:8000/" + image}
+              width="500px"
+              mx={"auto"}
+            />
+            <br />
+            <>
+              <Space h="20px" />
+              <Group>
+                {cookies && cookies.currentUser ? (
+                  <>
+                    <Group style={{ paddingLeft: "12px" }}>
+                      <div>
+                        <TextInput
+                          placeholder="Add a comment..."
+                          variant="unstyled"
+                          w={680}
+                          radius="md"
+                          value={comment}
+                          onChange={(event) => setComment(event.target.value)}
+                        />
+                      </div>
+                      {comment.length > 0 && (
+                        <div>
+                          <Group position="right">
+                            <Button
+                              style={{ margin: "0px" }}
+                              onClick={handleAddNewComment}
+                            >
+                              Comment
+                            </Button>
+                          </Group>
+                        </div>
+                      )}
+                    </Group>
+                  </>
+                ) : (
+                  <>
+                    <Group>
+                      <TextInput
+                        value=""
+                        placeholder="Enter the description here"
+                        style={{ border: "0px 0px 1px 0 px " }}
+                      />
+                    </Group>
+                  </>
+                )}
+              </Group>
+
+              <Grid>
+                {comments && comments.length > 0 ? (
+                  comments.map((c) => (
+                    <Grid.Col span={12}>
+                      <Space h={15} />
+                      <Divider w="100%" />
+                      <Space h={15} />
+                      <Group position="apart">
+                        <Group>
+                          <div
+                            style={{ paddingTop: "8px", paddingLeft: "0px" }}
+                          >
+                            <Text size={14}>
+                              <strong style={{ paddingRight: "10px" }}>
+                                {c.user.name}
+                              </strong>
+                              {c.user.createdAt}
+                            </Text>
+                            <Text size={18}>{c.comments}</Text>
+                          </div>
+                        </Group>
+                        <Group>
+                          <Link
+                            style={{
+                              textDecoration: "none",
+                              color: "inherit",
+                            }}
+                            onClick={() => {
+                              deleteCommentMutation.mutate({
+                                id: c._id,
+                                token: currentUser ? currentUser.token : "",
+                              });
+                            }}
+                          >
+                            <BsFillTrashFill />
+                          </Link>
+                        </Group>
+                      </Group>
+                    </Grid.Col>
+                  ))
+                ) : (
+                  <>
                     <Space h={15} />
                     <Divider w="100%" />
-                    <Space h={15} />
-                    <Group position="apart">
-                      <Group>
-                        <div style={{ paddingTop: "8px", paddingLeft: "0px" }}>
-                          <Text size={14}>
-                            <strong style={{ paddingRight: "10px" }}>
-                              {c.user.name}
-                            </strong>
-                            {c.user.createdAt}
-                          </Text>
-                          <Text size={18}>{c.comments}</Text>
-                        </div>
-                      </Group>
-                      <Group>
-                        <Link
-                          style={{
-                            textDecoration: "none",
-                            color: "inherit",
-                          }}
-                          onClick={() => {
-                            deleteCommentMutation.mutate({
-                              id: c._id,
-                              token: currentUser ? currentUser.token : "",
-                            });
-                          }}
-                        >
-                          <BsFillTrashFill />
-                        </Link>
-                      </Group>
+                    <Space h={50} />
+                    <Group position="center">
+                      <Text size={16}>No comments yet</Text>
                     </Group>
-                  </Grid.Col>
-                ))
-              ) : (
-                <>
-                  <Space h={15} />
-                  <Divider w="100%" />
-                  <Space h={100} />
-                  <Group position="center">
-                    <Text size={16}>No comments yet</Text>
-                  </Group>
-                </>
+                  </>
+                )}
+              </Grid>
+
+              <Space h="30px" />
+
+              {isAdmin && (
+                <Group position="apart">
+                  <Button
+                    component={Link}
+                    to={"/cars/" + id}
+                    color="blue"
+                    size="xs"
+                    radius="50px"
+                  >
+                    Edit
+                  </Button>
+
+                  <Button
+                    color="red"
+                    size="xs"
+                    radius="50px"
+                    onClick={() => {
+                      deleteMutation.mutate({
+                        id: id,
+                        token: currentUser ? currentUser.token : "",
+                      });
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </Group>
               )}
-            </Grid>
 
-            <Space h="30px" />
+              <Space h="30px" />
 
-            {isAdmin && (
-              <Group position="apart">
+              <Group position="center">
                 <Button
                   component={Link}
-                  to={"/cars/" + id}
-                  color="blue"
+                  to="/"
+                  variant="gradient"
                   size="xs"
-                  radius="50px"
+                  gradient={{ from: "blue", to: "purple", deg: 105 }}
                 >
-                  Edit
-                </Button>
-
-                <Button
-                  color="red"
-                  size="xs"
-                  radius="50px"
-                  onClick={() => {
-                    deleteMutation.mutate({
-                      id: id,
-                      token: currentUser ? currentUser.token : "",
-                    });
-                  }}
-                >
-                  Delete
+                  Go back to Home
                 </Button>
               </Group>
-            )}
-
-            <Space h="30px" />
-
-            <Group position="center">
-              <Button
-                component={Link}
-                to="/"
-                variant="gradient"
-                size="xs"
-                gradient={{ from: "blue", to: "purple", deg: 105 }}
-              >
-                Go back to Home
-              </Button>
-            </Group>
-          </>
-        </Card>
-      </Container>
+            </>
+          </Card>
+        </Container>
+        <Space h="100px" />
+      </BackgroundImage>
     </>
   );
 }

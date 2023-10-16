@@ -16,6 +16,8 @@ import { useState } from "react";
 import { registerUser } from "../api/auth";
 import { notifications } from "@mantine/notifications";
 import { useCookies } from "react-cookie";
+import "../App.css";
+
 export default function Signup() {
   const navigate = useNavigate();
   const [name, setName] = useState();
@@ -27,9 +29,8 @@ export default function Signup() {
   const registerMutation = useMutation({
     mutationFn: registerUser,
     onSuccess: (user) => {
-      //store user data into cookies
       setCookie("currentUser", user, {
-        maxAge: 60 * 60 * 24 * 30, // expire in 30 days
+        maxAge: 60 * 60 * 24 * 30,
       });
       navigate("/");
     },
@@ -41,7 +42,6 @@ export default function Signup() {
     },
   });
   const handleSubmit = () => {
-    // make sure email & password are not empty.
     if (!name || !email || !password || !confirmPassword) {
       notifications.show({
         title: "Please fill in all fields.",
@@ -63,69 +63,77 @@ export default function Signup() {
     }
   };
   return (
-    <Container>
-      <Header title="Sign Up A New Account" page="signup" />
-      <Space h="50px" />
-      <Card
-        withBorder
-        shadow="lg"
-        p="20px"
-        mx="auto"
-        sx={{
-          maxWidth: "700px",
-        }}
-      >
-        <Grid gutter={20}>
-          <Grid.Col span={6}>
-            <TextInput
-              value={name}
-              placeholder="Name"
-              label="Name"
-              required
-              onChange={(event) => setName(event.target.value)}
-            />
-            <Space h="20px" />
-            <TextInput
-              value={email}
-              placeholder="Email"
-              label="Email"
-              required
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <PasswordInput
-              value={password}
-              placeholder="Password"
-              label="Password"
-              visible={visible}
-              onVisibilityChange={toggle}
-              required
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Space h="20px" />
-            <PasswordInput
-              value={confirmPassword}
-              placeholder="Confirm Password"
-              label="Confirm Password"
-              visible={visible}
-              onVisibilityChange={toggle}
-              required
-              onChange={(event) => setConfirmPassword(event.target.value)}
-            />
-          </Grid.Col>
-        </Grid>
-        <Space h="40px" />
+    <div className="background3">
+      <Container>
+        <Header title="Sign Up A New Account" page="signup" />
+        <Space h="50px" />
+        <Card
+          withBorder
+          shadow="lg"
+          p="20px"
+          mx="auto"
+          sx={{
+            maxWidth: "700px",
+          }}
+        >
+          <Grid gutter={20}>
+            <Grid.Col span={6}>
+              <TextInput
+                value={name}
+                placeholder="Name"
+                label="Name"
+                required
+                onChange={(event) => setName(event.target.value)}
+              />
+              <Space h="20px" />
+              <TextInput
+                value={email}
+                placeholder="Email"
+                label="Email"
+                required
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <PasswordInput
+                value={password}
+                placeholder="Password"
+                label="Password"
+                visible={visible}
+                onVisibilityChange={toggle}
+                required
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Space h="20px" />
+              <PasswordInput
+                value={confirmPassword}
+                placeholder="Confirm Password"
+                label="Confirm Password"
+                visible={visible}
+                onVisibilityChange={toggle}
+                required
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+            </Grid.Col>
+          </Grid>
+          <Space h="40px" />
+          <Group position="center">
+            <Button onClick={handleSubmit}>Submit</Button>
+          </Group>
+        </Card>
+        <Space h="20px" />
         <Group position="center">
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button
+            component={Link}
+            to="/"
+            variant="subtle"
+            size="xs"
+            color="gray"
+          >
+            Go back to Home
+          </Button>
         </Group>
-      </Card>
-      <Space h="20px" />
-      <Group position="center">
-        <Button component={Link} to="/" variant="subtle" size="xs" color="gray">
-          Go back to Home
-        </Button>
-      </Group>
-    </Container>
+      </Container>
+    </div>
   );
 }

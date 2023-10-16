@@ -179,14 +179,6 @@ function CarsEdit() {
         <Space h="20px" />
         <Divider />
         <Space h="20px" />
-        {/* <TextInput
-          value={category}
-          placeholder="Enter the category here"
-          label="Category"
-          description="The category of the product"
-          withAsterisk
-          onChange={setCategory}
-        /> */}
         <select
           value={model}
           onChange={(event) => {
